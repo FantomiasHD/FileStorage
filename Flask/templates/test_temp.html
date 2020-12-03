@@ -1,6 +1,8 @@
 <html>
 <body>
 <h1>index</h1>
-<button><a href="{{url_for('.download')}}">download</a></button>
+{% for x in files %}
+<a href="{{ url_for('.download', filename=x) }}"><h3>{{ x }}</h3></a>
+{% endfor %}
 </body>
 </html>
