@@ -1,0 +1,70 @@
+body{
+  background-color: #081D2B;
+  margin: 0;
+  height: 100%;
+  overflow: hidden
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover{
+  color: #2CE89A;
+}
+h1{
+  color: white;
+  text-decoration: underline;
+}
+.box{
+  background-color:#0F344D;
+  box-shadow: 0 0 10px black;
+  width: 350px;
+  padding: 30px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.Form{
+  margin: 0 auto;
+  width:250px;
+}
+.Pass{
+  background-color: #081D2B;
+  text-align: center;
+  border-radius: 50px 50px;
+  border-style: solid;
+  margin-bottom: 20px;
+  border-color: #0AC95D;
+  box-shadow: 0 0 10px #0AC95D;
+  width: 250px;
+  height: 30px;
+  color: white;
+}
+.Pass:focus{
+   outline: none !important;
+   border-color: #2CE89A;
+   box-shadow: 0 0 10px #2CE89A;
+}
+.upload{
+  margin-bottom: 20px;
+  color: white;
+}
+.sub{
+  border: none;
+  border-radius: 50px 50px;
+  margin: 0 auto;
+  width: 250px;
+  height: 50px;
+  box-shadow: 0 0 10px black;
+}
+.sub:hover{
+  background-color: #2CE89A;
+}
+
+label{
+  color:white;
+}

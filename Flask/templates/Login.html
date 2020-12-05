@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    <title>Login</title>
+</head>
+<body>
+  <div class="box">
+    <form method="post", action="/setcookie", class="Form">
+        <input type="text",  name="user", id="Username", autocomplete="off", placeholder="Username", class="Pass">
+        <input type="password", name="pass", id="Password", autocomplete="off", placeholder="Password", class="Pass">
+        <input type="submit", name="Submit", class="sub">
+        <a href="/signup">Dont have an account? Sign Up here</a>
+    </form>
+  </div>
+</body>
+</html>
