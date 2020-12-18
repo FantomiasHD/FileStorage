@@ -2,7 +2,7 @@ from flask import Flask
 from flask import send_from_directory, request, render_template, make_response, redirect, g
 from werkzeug.utils import secure_filename
 
-from os import listdir, mkdir
+from os import listdir, mkdir, remove
 from os.path import isfile, join
 
 import sqlite3
@@ -15,6 +15,7 @@ import datetime
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "KHC2zY6tCH3ppS4BapA4bWFTrykm0eSJ"
 app.config["UPLOAD_FOLDER"] = "public"
+app.static_folder = 'static'
 
 app.config["DATABASE"] = "database.db"
 
@@ -22,8 +23,8 @@ cookieCheck = r"^{'user': '[\w\.]{1,15}', 'perm': '(W|R|F)', 'web': '[\d]+'}$"
 
 #cookieSaftyFeature
 def generateKey():
-    random.seed(int(datetime.datetime.now().strftime("%m")))
-    cookieKey = int(int(datetime.datetime.now().strftime("%y"))*random.random()*100*random.random()*100*10000000)
+    random.seed(int(datetime.datetime.now().strftime("%m")) + int(datetime.datetime.now().strftime("%d")[0]))
+    cookieKey = int(int(datetime.datetime.now().strftime("%y"))*random.random()*100*random.random()*100*1000000000000)
     return cookieKey
 
 #database Commands
@@ -48,15 +49,18 @@ def query_db(query, args=(), one=False):
 
 #simple Method to evaluate the cookie
 def checkCookie(cookie):
-    cookie = base64.b64decode(cookie)
-    cookieDict = eval(cookie)
-    username = saveString(cookieDict["user"])
-    query = query_db("SELECT * FROM USER WHERE username = ?", [username], one=True)
-    if re.match(cookieCheck, cookie.decode('utf-8')):
-        if query:
-            if cookieDict["web"] == str(generateKey()) and cookieDict["perm"] == query["permissions"]:
-                return (True, query['permissions'], username)
-    return (False, None, None)
+    try:
+        cookie = base64.b64decode(cookie)
+        if re.match(cookieCheck, cookie.decode('utf-8')):
+            cookieDict = eval(cookie)
+            username = saveString(cookieDict["user"])
+            query = query_db("SELECT * FROM USER WHERE username = ?", [username], one=True)
+            if query:
+                if cookieDict["web"] == str(generateKey()) and cookieDict["perm"] == query["permissions"]:
+                    return (True, query['permissions'], username)
+        return (False, None, None)
+    except:
+        return (False, None, None)
 
 def saveString(string):
     string = string.replace('\'', "")
@@ -123,16 +127,27 @@ def download():
         if perm[0] and not perm[1] == "W":
             onlyfiles = [f for f in listdir(app.config["UPLOAD_FOLDER"]+"/"+perm[2]) if isfile(join(app.config["UPLOAD_FOLDER"]+"/"+perm[2], f))]
             return render_template("test_temp.html", files=onlyfiles)
-    return redirect('/', 403)
+    return redirect('/missingCookie')
 
 @app.route('/downloader/<path:filename>')
 def downloader(filename):
     cookie = request.cookies.get('auth')
     if cookie:
         perm = checkCookie(cookie)
-    if perm[0] and not perm[1] == "W":
-        return send_from_directory(app.config["UPLOAD_FOLDER"]+"/"+perm[2], filename, as_attachment=True)
-    return redirect('/', 403)
+        if perm[0] and not perm[1] == "W":
+            return send_from_directory(app.config["UPLOAD_FOLDER"]+"/"+perm[2], filename, as_attachment=True)
+    return redirect('/missingCookie')
+
+
+@app.route('/delete/<path:filename>')
+def delete(filename):
+    cookie = request.cookies.get('auth')
+    if cookie:
+        perm = checkCookie(cookie)
+        if perm[0] and not perm[1] == "R":
+            remove(app.config["UPLOAD_FOLDER"]+'/'+perm[2]+'/'+filename)
+            return redirect('/')
+    return redirect('/missingCookie')
 
 #upload managment
 @app.route('/upload', methods=['GET', 'POST'])
@@ -140,12 +155,12 @@ def uploader():
     cookie = request.cookies.get('auth')
     if cookie:
         perm = checkCookie(cookie)
-    if perm[0] and not perm[1] == "R":
-        if request.method == 'POST':
-            f = request.files['file']
-            f.save(app.config["UPLOAD_FOLDER"]+'/'+perm[2] + '/' + secure_filename(f.filename))
-        return render_template("uploader.html")
-    return redirect('/', 403)
+        if perm[0] and not perm[1] == "R":
+            if request.method == 'POST':
+                f = request.files['file']
+                f.save(app.config["UPLOAD_FOLDER"]+'/'+perm[2]+'/'+secure_filename(f.filename))
+            return render_template("uploader.html")
+    return redirect('/missingCookie')
 
 #cookie managment
 @app.route('/setcookie', methods=['POST', 'GET'])
@@ -169,3 +184,8 @@ def removecookie():
     resp = make_response(redirect('/'))
     resp.set_cookie('auth', "", expires=0)
     return resp
+
+#403
+@app.route('/missingCookie')
+def missingCookie():
+    return render_template('UwUNoCookie.html')

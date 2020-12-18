@@ -1,0 +1,7 @@
+.deleteSymbol {
+  width:6%;
+  display: inline-block;
+}
+.deleteSymbol:hover {
+    cursor:pointer !important;
+}
