@@ -1,6 +1,5 @@
-# FlaskMitJul
+# Symple FileStorage
 
-We are **bored** as fuck
 ---
 Configuration:
 ```
