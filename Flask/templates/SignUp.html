@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
-    <title>SignUp</title>
-</head>
-<body>
-  <div class="box">
-    <form method="post", action="/signupper", class="Form">
-      <p style="color:red">{{ err }}</p>
-        <input type="text",  name="user", id="Username", autocomplete="off", placeholder="Username", class="Pass">
-        <input type="password", name="pass", id="Password", autocomplete="off", placeholder="Password", class="Pass">
-        <input type="password", name="pass2", id="Password", autocomplete="off", placeholder="Password", class="Pass">
-
-        <label for="rights">Permissions: </label>
-        <select name="rights" id="rights" style="margin-bottom: 10px">
-          <option value="R">Read Only</option>
-          <option value="W">Write Only</option>
-          <option value="F">Read & Write</option>
-        </select>
-
-        <input type="submit", name="Submit", class="sub">
-    </form>
-  </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}SignUp{% endblock %}
+{% block content %}{% endblock %}
+{% block box %}
+<form method="post" , action="/signupper" , class="Form">
+    <p style="color:red">{{ err }}</p>
+    <input type="text" , name="user" , id="Username" , autocomplete="off" , placeholder="Username" , class="Pass">
+    <input type="password" , name="pass" , id="Password" , autocomplete="off" , placeholder="Password" , class="Pass">
+    <input type="password" , name="pass2" , id="Password" , autocomplete="off" , placeholder="Password" , class="Pass">
+    <input type="submit" , name="Submit" , class="sub">
+</form>
+{% endblock %}
+{% block header %}{% endblock %}
+{% block logout %}{% endblock %}

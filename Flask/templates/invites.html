@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='invites.css') }}"/>
+{% endblock %}
+{% block title %}Current Invites{% endblock %}
+{% block content %}{% endblock %}
+{% block box %}
+{% if data %}
+<table>
+    <thead>
+    <tr>
+        <th>Folder</th>
+        <th>Permission</th>
+        <th>Inviter</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in data %}
+    <tr>
+        <td>{{ row["folder"] }}</td>
+        <td>{{ row["perm"] }}</td>
+        <td>{{ row["inviter"] }}</td>
+        <td><a href="/invites/accept/{{ row['folder'] }}"><img src="{{ url_for('static', filename='accept.svg') }}" class="logo"/></a></td>
+        <td><a href="/invites/reject/{{ row['folder'] }}"><img src="{{ url_for('static', filename='reject.svg') }}" class="logo"/></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="color:red">No Invites</p>
+{% endif %}
+{% endblock %}
+{% block header %}
+<a href="/folder">Folders</a>
+{% endblock %}

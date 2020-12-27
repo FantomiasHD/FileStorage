@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Invite User{% endblock %}
+{% block content %}{% endblock %}
+{% block box %}
+<form method="post" , enctype="multipart/form-data" , class="Form" , action="/inviter/{{ dir }}">
+    <input type="text" , name="user" , id="user" , class="Pass">
+    <label for="perm">Permissions:</label>
+    <select name="perm">
+        <option value="R">Read Only</option>
+        <option value="W">Write Only</option>
+        <option value="F">Full</option>
+    </select>
+    <input type="submit" , value="Invite User" , name="Submit" , class="sub">
+</form>
+{% endblock %}
