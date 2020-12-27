@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
-    <title>Permission denied</title>
-</head>
-<body>
-  <div class="box">
-    <img src="{{ url_for('static', filename='cookie.gif') }}">
-    <h1>Looks like you don't have a cookie!</h1>
-      <h2 class="upload">You can go back </h2>
-      <h2><a href="/">here</a></h2>
-       <h2 class="upload"> and try to log in.</h2>
-  </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Permission denied{% endblock %}
+{% block content %}{% endblock %}
+{% block box %}
+<img src="{{ url_for('static', filename='cookie.gif') }}">
+<h1>Looks like you don't have a cookie!</h1>
+<h2 class="upload">You can go back </h2>
+<h2><a href="/">here</a></h2>
+<h2 class="upload"> and try to log in.</h2>
+{% endblock %}

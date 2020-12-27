@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    {% block head %}{% endblock %}
+    <title>{% block title %}Base{% endblock %}</title>
+</head>
+<body>
+{% block content %}
+{% endblock %}
+<div class="box">
+    {% block box %}
+    <form method="post" , enctype="multipart/form-data" onsubmit="return alertOnSucsess()" , class="Form">
+        <input type="file" , name="file" , id="fileToUpload" , class="upload">
+        <input type="submit" , value="Invite User" , name="Submit" , class="sub">
+    </form>
+    {% endblock %}
+</div>
+{% block header %}
+<a href="/download/{{ dir }}">Back</a>
+<a href="/folder" , style="margin-left: 20%">Folders</a>
+<a href="/invites" , style="margin-left: 40%">Invites</a>
+{% endblock %}
+{% block logout %}
+<a href="removecookie" , style="margin-left: 95%">Logout</a>
+{% endblock %}
+</body>
+</html>

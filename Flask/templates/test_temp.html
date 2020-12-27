@@ -1,31 +1,31 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='download.css') }}" />
-    <title>Download</title>
-</head>
-<body>
-    <script>
-        function deleteFile(x) {
-            var ask = window.confirm("Do you want to delete this file?");
-            if (ask) {
-                window.alert("File succsesful deleted.");
-                window.location.href = "/delete/"+x;
-            }
-        }
-    </script>
-  <div class="box">
-    <h1>Download Files</h1>
-    {% for x in files %}
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <a href="{{ url_for('.downloader', filename=x) }}" style="display: inline-block;"><p>{{ x }}</p></a>
-        <img src="{{ url_for('static', filename='delete.svg') }}" class="deleteSymbol" onclick="deleteFile('{{ x }}')"/>
-    </div>
-    {% endfor %}
-  </div>
-  <a href="/upload">Upload Data</a>
-  <a href="removecookie" style="margin-left: 95%;">Logout</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='download.css') }}"/>{% endblock %}
+{% block title %}Download{% endblock %}
+{% block content %}
+<script>
+      function deleteFile(x) {
+          var ask = window.confirm("Do you want to delete this file?");
+          if (ask) {
+              window.alert("File succsesful deleted.");
+              window.location.href = "/delete/{{ dir }}"+"/"+x;
+          }
+      }
+
+</script>
+{% endblock %}
+{% block box %}
+<h1>Download Files</h1>
+<a href="/invite/{{ dir }}">Invite to this Folder</a>
+{% for x in files %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <a href="/downloader/{{ dir }}/{{ x }}" style="display: inline-block;"><p>{{ x }}</p></a>
+    <img src="{{ url_for('static', filename='delete.svg') }}" class="deleteSymbol" onclick="deleteFile('{{ x }}')"/>
+</div>
+{% endfor %}
+{% endblock %}
+{% block header %}
+<a href="/upload/{{ dir }}">Upload</a>
+<a href="/folder" , style="margin-left: 20%">Folders</a>
+<a href="/invites" , style="margin-left: 40%">Invites</a>
+{% endblock %}

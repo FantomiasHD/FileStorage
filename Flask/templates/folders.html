@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Folders{% endblock %}
+{% block content %}{% endblock %}
+{% block box %}
+<h1>Folders</h1>
+{% for x in files %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <a href="/download/{{ x }}" style="display: inline-block;"><p>{{ x }}</p></a>
+</div>
+{% endfor %}
+{% endblock %}
+{% block header %}
+<a href="/invites" , style="margin-left: 40%">Invites</a>
+{% endblock %}
