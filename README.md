@@ -1,6 +1,5 @@
 # Symple FileStorage
 
----
 Configuration:
 ```
 set FLASK_APP=backend.py  
