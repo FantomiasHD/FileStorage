@@ -18,3 +18,6 @@ Folders: All accsesable Folders
 ```
 pip install -r requirements.txt
 ```
+
+### Copyright Simon Felix Seeger
+### Created 05/07/2020
