@@ -13,3 +13,8 @@ Login: Login into the Folders
 Register: register new account  
 Invites: Pending Invites from other users  
 Folders: All accsesable Folders  
+
+## Requirements
+```
+pip install -r requirements.txt
+```
