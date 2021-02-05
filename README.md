@@ -12,7 +12,7 @@ run on port 80 on public IP:  python -m flask run --port 80 --host 0.0.0.0
 Login: Login into the Folders  
 Register: register new account  
 Invites: Pending Invites from other users  
-Folders: All accsesable Folders  
+Folders: All accessible Folders  
 
 ## Requirements
 ```
